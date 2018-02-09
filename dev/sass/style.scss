@@ -1,0 +1,872 @@
+
+// Theme Name: MH Library of Dreams
+// Theme URI: https://wordpress.org/themes/libraryofdreams/
+// Author:  Luke Diamantopoulos
+// Author URI: https://lukediamantopoulos.com/
+// Description: Makes magic.
+// Version: 1.0
+// License: GNU General Public License v2 or later
+// License URI: http://www.gnu.org/licenses/gpl-2.0.html
+// Text Domain: libraryofdreams
+// Tags: one-column, two-columns, right-sidebar, flexible-header, accessibility-ready, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
+// This theme, like WordPress, is licensed under the GPL.
+// Use it to make something cool, have fun, and share what you've learned with others
+
+// -------------------------------------------------------------------
+// Imports
+// -------------------------------------------------------------------
+@import 'setup.scss';
+@import 'mixins.scss';
+
+// -------------------------------------------------------------------
+// Variables
+// -------------------------------------------------------------------
+
+// Colors
+$c-secondary: #363636;
+$c-light: #F6F5F5;
+$c-dim: darken(#F6F5F5, 20%);
+
+$c-accent: #FF7767;
+
+$c-danger: #fb4848;
+$c-confirm: #6aaeeb;
+$c-success: #6eb84b;
+
+// Fonts
+$f-main: 'Monserrat', arial;
+$f-heading: 'Playfair Display', serif;
+
+$bold: 700;
+
+// -------------------------------------------------------------------
+// Defaults
+// -------------------------------------------------------------------
+
+#wpadminbar { display: none; } // Remove the WP default editing bar for logged in users
+
+// "Edit link" in front-end
+.post-edit-link { 
+	font-size: 12px;
+	color: $c-accent;
+}
+
+// -------------------------------------------------------------------
+// General
+// -------------------------------------------------------------------
+
+html {
+	background-color: $c-light;
+}
+
+body {
+	font-family: $f-main;
+	min-height: 100vh;
+}
+
+a,
+.mh-popover {
+	text-decoration: none;
+	color: $c-accent;
+	transition: .2s all ease-in-out;
+
+	&:hover {
+		color: darken($c-accent, 10%);
+	}
+}
+
+em {
+	font-family: $f-heading;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $f-heading;
+	font-weight: 400;
+	color: $c-secondary;
+	margin: 0 auto 10px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+h3 {
+	font-size: 16px;
+	letter-spacing: 1px;
+	font-weight: 700;
+}
+
+h6 {
+	font-size: 10px;
+	margin: 0 auto 5px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	 li {
+	 	padding: 0; 
+	 	margin: 0;
+	 }
+}
+
+p {
+	margin: 5px 0;
+	font-size: 13px;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: bottom;
+}
+
+.btn {
+	position: relative;
+	font-family: $f-main;
+	border: 2px $c-secondary solid;
+	color: $c-secondary;
+	text-transform: uppercase;
+	font-size: 9px;
+	padding: 10px 20px;
+	letter-spacing: 1px;
+	font-weight: 700;
+	overflow: hidden;
+	transition: .3s ease-in-out;
+	background-color: rgba(0,0,0,0);
+	z-index: 1;
+
+	&:before {
+		content: '';
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: $c-secondary;
+		transform: translateY(-100%);
+		height: 100%;
+		width: 100%;
+		transition: .3s ease-in-out;
+	}
+
+	&:hover {
+		color: white;
+
+		&:before {
+			transform: translateY(0%);
+		}
+	}
+}
+
+// Form Autofill
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	background: rgba(0,0,0,0);
+}
+
+// -------------------------------------------------------------------
+// Layout 
+// -------------------------------------------------------------------
+
+#site {
+	position: relative;
+	background-color: white;
+	height: 100vh;
+	overflow: scroll;
+	transition: .3s ease-in-out;
+	bottom: 0;
+	z-index: 1;
+}
+
+.row {
+	width: 100%;
+	position: relative;
+}
+
+.container,
+.wrapper {
+	width: 960px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.flex {
+	display: flex;
+	justify-content: space-between;
+}
+
+.container {
+	padding: 0 50px;
+}
+
+// -------------------------------------------------------------------
+// Styles
+// -------------------------------------------------------------------
+
+.post-title {
+	text-align: center;
+	margin: 0 auto 15px;
+}
+
+.post-excerpt {
+	font-size: 14px;
+}
+
+.post-title-link {
+	margin: auto;
+}
+
+.align-center {
+	text-align: center;
+}
+
+// -------------------------------------------------------------------
+// Widgets
+// -------------------------------------------------------------------
+
+.widget-item {
+	padding: 20px 0;
+}
+
+// -------------------------------------------------------------------
+// Search Results 
+// -------------------------------------------------------------------
+
+.page-search-results {
+
+	.page-search-title {
+		text-align: center;
+		padding-bottom: 50px;
+		position: relative;
+		font-family: $f-heading;
+		font-weight: 700;
+
+		&:after {
+			content: '';
+			position: absolute;
+			height: 3px;
+			width: 25px;
+			background-color: $c-dim;
+			bottom: 30px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+
+	.container {
+		text-align: center;
+	}
+}
+
+article.search-item {
+	width: calc(33% - 10px);
+
+	.search-content {
+		position: relative;
+		padding: 20px 10px;
+		background-color: $c-light;
+		min-height: 120px;
+
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 2px;
+			background-color: $c-accent;
+		}
+
+		.search-excerpt {
+			font-size: 14px;
+		}
+	}
+}
+
+// -------------------------------------------------------------------
+// Grid 
+// -------------------------------------------------------------------
+
+.col-50 {
+	width: 50%;
+}
+
+.col-33 {
+	width: 33%;
+}
+
+.col-30 {
+	width: 30%;
+}
+
+.col-25 {
+	width: 25%;
+}
+
+// -------------------------------------------------------------------
+// Post navigation 
+// -------------------------------------------------------------------
+
+.post-nav {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 0;
+
+	.col-50:nth-child(2) {
+		text-align: right;
+	}
+}
+
+// -------------------------------------------------------------------
+// Basic page 
+// -------------------------------------------------------------------
+
+article.container-page {
+	padding-top: 50px;
+}
+
+// -------------------------------------------------------------------
+// Basic Post 
+// -------------------------------------------------------------------
+
+article.mh-post {
+	padding: 50px;
+	width: 960px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+// -------------------------------------------------------------------
+// Border 
+// -------------------------------------------------------------------
+
+.border {
+	position: fixed;
+	background-color: $c-light;
+	z-index: 9998;
+	transition: .3s ease-in-out;
+
+	&.border-top {
+		height: 30px;
+		width: 100%;
+		top: 0;
+		left: 0;
+		position: absolute;
+	}
+
+	&.border-left {
+		height: 100%;
+		width: 30px;
+		top: 0;
+		left: 0;
+	}
+
+	&.border-bottom {
+		height: 30px;
+		width: 100%;
+		bottom: 0;
+		left: 0;
+		position: absolute;
+	}
+
+	&.hover {
+		background-color: darken($c-light, 5%);
+	}
+}
+
+// -------------------------------------------------------------------
+// Header 
+// -------------------------------------------------------------------
+
+header.mh-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: top;
+	position: fixed;
+	width: 100%;
+	max-width: 100%;
+	padding: 50px 50px 20px;
+	margin: 0 auto;
+
+	.logo {
+		width: 50px;
+		height: auto;
+		overflow: hidden;
+		margin-left: 0;
+    	margin-right: auto;
+
+		img {
+			width: 100%;
+		}
+	}
+}
+
+.header-space {
+	height: 150px;
+}
+
+// -------------------------------------------------------------------
+// Header -- Widget Location 
+// -------------------------------------------------------------------
+
+
+header .widget-location {
+	margin-left: auto;
+
+	.widget-title {
+		display: none;
+	}
+}
+
+// -------------------------------------------------------------------
+// Header -- Header Location 
+// -------------------------------------------------------------------
+
+header .mh-header-menu,
+header .mh-header-menu-sub, {
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: top;
+	list-style-type: none;
+
+	li {
+
+		&.current-menu-item a,
+		&.current-page-ancestor a {
+			// color: $c-accent; // Currently controlled by functions.php
+		}
+
+		a {
+			text-transform: uppercase;
+			font-weight: 700;
+			padding: 5px;
+		}
+	}
+}
+
+header .mh-header-menu {
+	li {
+		margin-left: 10px;
+
+		a {
+			letter-spacing: 2px;
+			font-size: 10px;
+			color: $c-secondary;
+		}
+	}
+}
+
+header .mh-header-menu-sub {
+	margin-top: 5px;
+
+	li {
+		margin-left: 10px;
+
+		a {
+			letter-spacing: 1px;
+			font-size: 8px;
+			color: $c-secondary;
+		}
+	}
+}
+
+// -------------------------------------------------------------------
+// Header -- Sub menu 
+// -------------------------------------------------------------------
+
+.mh-header-menu-sub {
+	display: block;
+}
+
+// -------------------------------------------------------------------
+// Header -- Sidebar Menu Location 
+// -------------------------------------------------------------------
+
+.menu-location .mh-sidebar-menu {
+	a {
+		font-size: 30px;
+		color: $c-secondary;
+	}
+}
+
+// -------------------------------------------------------------------
+// Header -- Search Widget 
+// -------------------------------------------------------------------
+
+header {
+	#searchform {
+		label {
+			display: none;
+		}
+
+		input[type="text"] {
+			background: none;
+			border: none;
+			border-bottom: 1px $c-secondary solid;
+			outline: none;
+			vertical-align: bottom;
+			margin-right: 5px;
+		}
+
+		#searchsubmit {
+			position: relative;
+			border: 2px $c-secondary solid;
+			color: $c-secondary;
+			background-color: rgba(0,0,0,0);
+			text-transform: uppercase;
+			font-size: 9px;
+			padding: 10px 20px;
+			letter-spacing: 1px;
+			font-weight: 700;
+			z-index: 1;
+
+			&:before {
+				content: '';
+				z-index: -1;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: $c-secondary;
+				transform: translateY(-100%);
+				height: 100%;
+				width: 100%;
+				transition: .3s ease-in-out;
+			}
+
+			&:hover {
+				&:before {
+					transform: translateY(0%);
+				}
+			}
+		}
+	}
+}
+
+// -------------------------------------------------------------------
+// Header -- Sidebar
+// -------------------------------------------------------------------
+
+.mh-sidebar {
+	width: 30px;
+	height: 100%;
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: $c-light;
+	z-index: 9999;
+	
+	// Toggle bar
+	#mh-sidebar-toggle {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		height: 100%;
+		background-color: $c-light;
+		width: 30px;
+		transition: .3s cubic-bezier(1,.09,.45,.93);
+		z-index: 9999;
+
+		&:hover {
+			background-color: darken($c-light, 5%);
+			left: -20px;
+			width: 50px;
+
+			.mh-sidebar-toggle-container {
+
+				.sidebar-toggle-bar {
+					background-color: $c-secondary;
+					width: 100%;
+
+					&:nth-child(2),
+					&:nth-child(3) {
+						width: 100%;
+					}
+				}
+			}
+		}
+		
+		// If the nav is open. Start expanding from the left side
+		&.nav-open {
+			left: 0;
+			
+			// Switch the direction of the menu bars
+			.mh-sidebar-toggle-container .sidebar-toggle-bar {
+				margin-right: auto;
+				margin-left: 0;
+			}
+			
+			// Expand right instead of left
+			&:hover {
+				right: 20px;
+			}
+		}
+
+		.mh-sidebar-toggle-container {
+			position: absolute;
+			width: 20px;
+			top: 50%;
+			left: 50%;
+			@include transform(translate(-50%, -50%));
+
+			.sidebar-toggle-bar {
+				height: 2px;
+				width: 100%;
+				margin-bottom: 5px;
+				background-color: $c-dim;
+				margin-right: 0;
+				margin-left: auto;
+				-webkit-transition: all 300ms cubic-bezier(0.455, 0.240, 0.600, 0.825); 
+				   -moz-transition: all 300ms cubic-bezier(0.455, 0.240, 0.600, 0.825); 
+				     -o-transition: all 300ms cubic-bezier(0.455, 0.240, 0.600, 0.825); 
+				        transition: all 300ms cubic-bezier(0.455, 0.240, 0.600, 0.825); 
+
+				&:nth-child(2) {
+					width: 50%;
+				}
+
+				&:nth-child(3) {
+					width: 75%;
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	
+	// Meat and Potatoes
+	.mh-sidebar-inner {
+		display: none;
+		width: 100%;
+		padding: 50px;
+
+		.widget-location,
+		.menu-location {
+			float: left;
+			width: 50%;
+		}
+	}
+}
+
+// -------------------------------------------------------------------
+// Contact Form 
+// -------------------------------------------------------------------
+
+#form-contact {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 50px;
+	background-color: $c-light;
+	border-radius: 10px;
+
+	.form-group {
+		margin-bottom: 35px;
+		position: relative;
+
+		&:last-of-type {
+			margin-bottom: 50px;
+		}
+
+		// Status Message
+		.form-control-msg,
+		.form-status-msg {
+			display: none;
+			color: $c-danger;
+			text-align: center;
+			padding-top: 5px;
+			position: absolute;
+			width: 100%;
+			padding-top: 10px;
+
+			&.form-submission {
+				color: $c-confirm;
+			}
+
+			&.form-error {
+				color: $c-danger;
+			}
+
+			&.form-success {
+				color: $c-success;
+			}
+			
+			// Java script to turn on msg
+			&.js-show-feedback {
+				display: block;
+			}
+		}
+
+		// Error handling
+		&.has-error {
+			.form-field-container {
+				&:before {
+					background-color: $c-danger;
+				}
+			}
+
+			.form-control-msg {
+				display: block;
+			}
+		}
+
+		.form-field-container {
+			position: relative;
+			overflow: hidden;
+
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				z-index: 1;
+			}
+
+			&:before {
+				background-color: darken($c-light, 10%);
+			}
+
+			&:after {
+				background-color: $c-accent;
+				transform: translateX(-100%);
+				transition: .3s ease-in-out;
+			}
+
+			input, 
+			textarea {
+				position: relative;
+				width: 100%;
+				padding: 5px 5px 5px 0;
+				border: none;
+				outline: 0;
+				background-color: $c-light;
+				overflow: hidden;
+			}
+		}
+	}
+}
+
+// If it is through a text widget
+
+.widget-location #form-contact {
+	padding: 50px 0;
+	margin: 0 auto;
+	max-width: 1024px;
+}
+
+// -------------------------------------------------------------------
+// Popover
+// -------------------------------------------------------------------
+
+.mh-popover {
+	cursor: n-resize;; 
+}
+
+.mh-popover-modal {
+	position: fixed;
+	max-width: calc(100% - 100px);
+	display: inline-block;
+	padding: 10px;
+	background-color: $c-accent;
+	border-radius: 5px;
+	color: white;
+	font-size: 10px;
+	z-index: 9;
+
+	.mh-popover-modal-title {
+		color: white;
+		letter-spacing: .1em;
+	}
+
+	.mh-popover-modal-content {
+		color: white;
+	}
+
+	.mh-popover-modal-tail {
+		position: absolute;
+		bottom: -5px;
+		left: 15px;
+		height: 12px;
+		width: 12px;
+		background-color: $c-accent;
+		transform: rotate(45deg);
+	}
+}
+
+// -------------------------------------------------------------------
+// Footer 
+// -------------------------------------------------------------------
+
+footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center; 
+	align-items: center;
+}
+
+footer p {
+	margin: 0 auto;
+}
+
+// -------------------------------------------------------------------
+// Footer Beneath Area
+// -------------------------------------------------------------------
+
+#footer-beneath {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	background-color: $c-light;
+	z-index: 0;
+	padding-bottom: 70px;
+
+	.container {
+		position: relative;
+	}
+
+	#btn-footer-beneath-close {
+		position: absolute;
+		top: 20px;
+		right: 50px;
+		outline: 0;
+		border: 0;
+		letter-spacing: 2px;
+	    font-size: 10px;
+	    color: #363636;
+	    background-color: rgba(0,0,0,0);
+	    text-transform: uppercase;
+	    font-weight: $bold;
+
+	    &:hover {
+	    	color: $c-accent;
+	    }
+	}
+}

@@ -1,0 +1,60 @@
+
+/* Sidebar preview*/
+.mh-sidebar-preview {
+	width: 300px;
+	background-color: #24282D;
+	padding: 30px 20px;
+	text-align: center;
+	margin: 20px 0;
+}
+
+/*Profile Picture*/
+.mh-sidebar-preview .mh-sidebar-image-container {
+	height: 100px;
+	width: 100px;
+	border-radius: 50%;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+/*Profile Picture IMG*/
+.mh-sidebar-preview .mh-sidebar-image-container .mh-sidebar-image {
+	height: 100%;
+	width: 100%;
+	background-position: center center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+.mh-sidebar-preview .mh-sidebar-name,
+.mh-sidebar-preview .mh-sidebar-description {
+	color: white;
+	font-weight: 100;
+}
+
+.mh-sidebar-preview .mh-sidebar-name {
+	font-size: 24px;
+	margin: 0 auto 10px;
+}
+
+.mh-sidebar-preview .mh-sidebar-description {
+	font-size: 14px;
+	margin: 0 auto 5px;
+}
+
+.mh-sidebar-preview .mh-sidebar-social {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: space-between: 
+}
+
+.mh-sidebar-preview .mh-sidebar-social .mh-sidebar-social-item {
+	margin: 0 5px;
+}
+
+
+mh-admin-form {
+
+}
